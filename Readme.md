@@ -1,45 +1,41 @@
-# 📘 Customer Transaction Data Processing & EDA Pipeline  
+# 📘 **README – Data Cleaning, Merging & Reporting Project**
 
-A complete end-to-end project for loading, cleaning, transforming, and enriching customer transaction data from **CSV**, **JSON**, and **SQL** sources.  
-This project creates a fully processed dataset ready for **Analytics, Machine Learning, and Dashboarding**. 🚀
+## 📂 **1. Project Overview**
+This project focuses on **cleaning, preprocessing, feature engineering, and merging** three datasets into one final analysis-ready master dataset.
 
----
+### 📁 **Datasets Used**
+- **Products Dataset** (`inventory.sql`) – Contains product-level information like product ID, name, price, stock, and category.  
+- **Sales Dataset** (`sales.json`) – Contains each transaction with amount, payment type, user ID, product ID, and date.
+- **Users Dataset** (`users.csv`) – Contains demographic and profile details of customers.
 
-# 📂 1. Data Sources  
-
-| File | Type | Description |
-|------|--------|-------------|
-| `users.csv` | 📄 CSV | Customer demographics (user_id, gender, region, etc.) |
-| `sales.json` | 📦 JSON | Transaction-level data (transaction_id, user_id, product_id, amount, payment_type, date) |
-| `inventory.sql` | 🗄️ SQL | Product catalog (product_id, product_name, category, price, stock) |
-
----
-
-# 🧭 2. Data Understanding & Loading  
-
-### ✔️ Tasks  
-- Load all datasets (CSV, JSON, SQL)  
-- Display top 5 rows  
-- Show `.info()` summary  
-- Identify  
-  - Missing values  
-  - Incorrect data types  
-  - Inconsistent or invalid records  
-
-### 🧪 Tools Used  
-- `pd.read_json()`  
-- `pd.read_csv()`  
-- `sqlite3 + pd.read_sql_query()`  
+The goal was to **clean**, **merge**, and **generate a final summary report** showing:
+- Records before vs after cleaning  
+- Missing values before vs after  
+- Outlier counts before vs after  
+- Number of engineered features  
 
 ---
 
-# 🧹 3. Data Cleaning  
+# 🧹 **2. Data Cleaning Workflow**
 
-### ✔️ Steps Performed  
-- Impute **numerical** missing values using `SimpleImputer(mean)`  
-- Impute **categorical** missing values using `SimpleImputer(most_frequent)`  
-- Use **KNNImputer** for multivariate numeric imputation  
-- Fix invalid records:  
-  - Negative amounts or prices  
-  - Invalid dates  
-  - Stripped whitespace and sta
+## 🔧 **2.1 Cleaning Steps**
+The following steps were applied across datasets:
+
+### 🟦 **Sales Dataset**
+- Converted `date` to datetime  
+- Filled missing numerical values (`amount`) using **median imputation**  
+- Filled missing categorical values (`payment_type`) with **"Unknown"**  
+- Removed duplicate rows  
+
+### 🟩 **Products Dataset**
+- Parsed SQL INSERT rows into structured DataFrame  
+- Cleaned strings  
+- Imputed missing `price` values with median  
+- Imputed missing `stock` values with 0  
+
+### 🟨 **Users Dataset**
+- Cleaned string columns  
+- Filled missing numerical values with median  
+- Filled missing categorical fields with **"Unknown"**  
+
+---
